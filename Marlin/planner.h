@@ -136,4 +136,7 @@ FORCE_INLINE bool blocks_queued()
 }
 
 void allow_cold_extrudes(bool allow);
+void set_extuderskip_window(const float &x1, const float &y1, const float &x2, const float &y2);
+void get_extuderskip_window(float *coords);
+
 #endif

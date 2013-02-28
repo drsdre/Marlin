@@ -74,6 +74,8 @@ float max_z_jerk;
 float max_e_jerk;
 float mintravelfeedrate;
 unsigned long axis_steps_per_sqr_second[NUM_AXIS];
+float extuderskip_window[4]={0,0,0,0}; //2D rectangle in which extrusion is prevented specified by 2 XY coordinates
+
 
 // The current position of the tool in absolute steps
 long position[4];   //rescaled from extern when axis_steps_per_unit are changed by gcode
@@ -536,6 +538,18 @@ void plan_buffer_line(const float &x, const float &y, const float &z, const floa
     #endif
   }
   #endif
+  
+  // Prevent extruding if a skip window is set and current position or target if within skip window
+  if((extuderskip_window[0]!=extuderskip_window[2]&&extuderskip_window[1]!=extuderskip_window[3]) && 
+     (((position[X_AXIS]>=extuderskip_window[0] && position[X_AXIS]<=extuderskip_window[2]) &&
+     (position[Y_AXIS]>=extuderskip_window[1] && position[Y_AXIS]<=extuderskip_window[3])) ||
+     ((target[X_AXIS]>=extuderskip_window[0] && target[X_AXIS]<=extuderskip_window[2]) &&
+     (target[Y_AXIS]>=extuderskip_window[1] && target[Y_AXIS]<=extuderskip_window[3]))))
+  {
+    position[E_AXIS]=target[E_AXIS]; //behave as if the move really took place, but ignore E part
+    SERIAL_ECHO_START;
+    SERIAL_ECHOLNPGM(MSG_ERR_SKIPWINDOW_EXTRUDE_STOP);
+  }
 
   // Prepare to set up new block
   block_t *block = &block_buffer[block_buffer_head];
@@ -893,5 +907,37 @@ void allow_cold_extrudes(bool allow)
 #ifdef PREVENT_DANGEROUS_EXTRUDE
   allow_cold_extrude=allow;
 #endif
+}
+
+void set_extuderskip_window(const float &x1, const float &y1, const float &x2, const float &y2)
+{
+  // Order X coordinates lower-higher
+  if(x1>x2)
+  {
+    extuderskip_window[0] = x2;
+    extuderskip_window[2] = x1;
+  }
+  else {
+    extuderskip_window[0] = x1;
+    extuderskip_window[2] = x2;
+  }
+  
+  // Order Y coordinates lower-higher
+  if(y1>y2)
+  {
+    extuderskip_window[1] = y2;
+    extuderskip_window[3] = y1;
+  }
+  else {
+    extuderskip_window[1] = y1;
+    extuderskip_window[3] = y2;
+  }
+}
+void get_extuderskip_window(float *coords)
+{
+  coords[0]=extuderskip_window[0];
+  coords[1]=extuderskip_window[1];
+  coords[2]=extuderskip_window[2];
+  coords[3]=extuderskip_window[3];
 }
 

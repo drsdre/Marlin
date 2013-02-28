@@ -220,6 +220,8 @@ bool Stopped=false;
 //===========================================================================
 
 void get_arc_coordinates();
+void set_extskipwindow_coordinates();
+void get_extskipwindow_coordinates();
 bool setTargetedHotend(int code);
 
 void serial_echopair_P(const char *s_P, float v)
@@ -1665,6 +1667,16 @@ void process_commands()
     }
     break;
     #endif //FILAMENTCHANGEENABLE    
+    case 601: // M601 Set extrusion skip window
+    {
+        set_extskipwindow_coordinates();
+    }
+    break;
+    case 602: // M602 Get extrusion skip window
+    {
+        get_extskipwindow_coordinates();
+    }
+    break;
     case 907: // M907 Set digital trimpot motor current using axis codes.
     {
       #if DIGIPOTSS_PIN > -1
@@ -1870,6 +1882,40 @@ void get_arc_coordinates()
    else {
      offset[1] = 0.0;
    }
+}
+
+void set_extskipwindow_coordinates()
+{
+  float a = 0, b = 0, c = 0, d = 0;
+  if(code_seen('A')) {
+    a = code_value();
+    if(code_seen('B')) {
+      b = code_value();
+      if(code_seen('C')) {
+        c = code_value();
+        if(code_seen('D')) {
+          d = code_value();         
+        }
+      }
+    }
+  }
+  set_extuderskip_window(a, b, c, d);
+}
+void get_extskipwindow_coordinates()
+{
+  float coords[4];
+  get_extuderskip_window(coords);
+  SERIAL_ECHO_START;
+  SERIAL_ECHOPGM("Skip window=");
+  SERIAL_ECHOPGM(" a:");
+  SERIAL_ECHO(coords[0]);
+  SERIAL_ECHOPGM(" b:");
+  SERIAL_ECHO(coords[1]);
+  SERIAL_ECHOPGM(" c:");
+  SERIAL_ECHO(coords[2]);
+  SERIAL_ECHOPGM(" d:");
+  SERIAL_ECHO(coords[3]);
+  SERIAL_ECHOLNPGM("\"");
 }
 
 void clamp_to_software_endstops(float target[3])
