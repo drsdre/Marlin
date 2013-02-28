@@ -187,7 +187,7 @@
 	#define MSG_ENDSTOPS_HIT "endstops hit: "
 	#define MSG_ERR_COLD_EXTRUDE_STOP " cold extrusion prevented"
 	#define MSG_ERR_LONG_EXTRUDE_STOP " too long extrusion prevented"
-
+	#define MSG_ERR_SKIPWINDOW_EXTRUDE_STOP " extrusion in skip window prevented"
 #endif
 
 
@@ -345,6 +345,7 @@
 	#define MSG_ENDSTOPS_HIT "Wylacznik krancowy zostal wyzwolony na pozycji: "
 	#define MSG_ERR_COLD_EXTRUDE_STOP " uniemozliwiono zimna ekstruzje"
 	#define MSG_ERR_LONG_EXTRUDE_STOP " uniemozliwiono zbyt dluga ekstruzje"
+    #define MSG_ERR_SKIPWINDOW_EXTRUDE_STOP " extrusion in skip window prevented"
 
 #endif
 
@@ -507,6 +508,7 @@
 #define MSG_ENDSTOPS_HIT "Fin de course atteint: "
 #define MSG_ERR_COLD_EXTRUDE_STOP " Extrusion a froid evitee"
 #define MSG_ERR_LONG_EXTRUDE_STOP " Extrusion longue evitee"
+#define MSG_ERR_SKIPWINDOW_EXTRUDE_STOP " Extrusion a skip window evitee"
 	
 #endif
 
@@ -667,6 +669,7 @@
 	#define MSG_ENDSTOPS_HIT "endstops hit: "
 	#define MSG_ERR_COLD_EXTRUDE_STOP " cold extrusion prevented"
 	#define MSG_ERR_LONG_EXTRUDE_STOP " too long extrusion prevented"
+    #define MSG_ERR_SKIPWINDOW_EXTRUDE_STOP " extrusion in skip window prevented"
 
 #endif
 
@@ -826,6 +829,7 @@
 #define MSG_ENDSTOPS_HIT "Se ha tocado el fin de carril: "
 #define MSG_ERR_COLD_EXTRUDE_STOP " extrusion fria evitada"
 #define MSG_ERR_LONG_EXTRUDE_STOP " extrusion demasiado larga evitada"
+#define MSG_ERR_SKIPWINDOW_EXTRUDE_STOP " extrusion in skip window evitada"
 
 #endif
 
@@ -978,6 +982,7 @@
 #define MSG_ENDSTOPS_HIT					"концевик сработал: "
 #define MSG_ERR_COLD_EXTRUDE_STOP			" защита холодной экструзии"
 #define MSG_ERR_LONG_EXTRUDE_STOP			" защита превышения длинны экструзии"
+#define MSG_ERR_SKIPWINDOW_EXTRUDE_STOP     " extrusion in skip window prevented"
 
 #endif
 
@@ -1136,6 +1141,7 @@
 	#define MSG_ENDSTOPS_HIT         "Raggiunto il fondo carrello: "
 	#define MSG_ERR_COLD_EXTRUDE_STOP " prevenuta estrusione fredda"
 	#define MSG_ERR_LONG_EXTRUDE_STOP " prevenuta estrusione troppo lunga"
+    #define MSG_ERR_SKIPWINDOW_EXTRUDE_STOP " preventa estrusione skip window"
 
 #endif
 
@@ -1300,6 +1306,7 @@
 	#define MSG_ENDSTOPS_HIT "O ponto final foi tocado: "
 	#define MSG_ERR_COLD_EXTRUDE_STOP " Extrusao a frio evitada"
 	#define MSG_ERR_LONG_EXTRUDE_STOP " Extrusao muito larga evitada"
+    #define MSG_ERR_SKIPWINDOW_EXTRUDE_STOP " Extrusao skip window evitada"
 
 
 #endif
@@ -1459,6 +1466,7 @@
 	#define MSG_ENDSTOPS_HIT "paatyrajat aktivoitu: "
 	#define MSG_ERR_COLD_EXTRUDE_STOP " kylmana pursotus estetty"
 	#define MSG_ERR_LONG_EXTRUDE_STOP " liian pitka pursotus estetty"
+    #define MSG_ERR_SKIPWINDOW_EXTRUDE_STOP " skip window pursotus estetty"
 
 #endif
 #endif // ifndef LANGUAGE_H
